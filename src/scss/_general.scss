@@ -1,0 +1,25 @@
+html {
+  font-size: 62.5%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden; 
+  background: #fff;
+  color: $text;
+  margin: 0;
+  box-sizing: border-box;
+
+  // font-family: 'Hind', sans-serif;
+  font-family: 'Public Sans', sans-serif;
+}
+
+
+.main {
+  padding: 60px;
+   
+  @include media-breakpoint-up(md) {
+    padding: 80px;
+  }
+}

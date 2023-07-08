@@ -1,0 +1,29 @@
+.header {
+    height: 40px;
+    display: flex;
+    align-items: center;
+   
+    .logo {
+        font-size: 1.4rem;
+        color: $gray;
+        border-bottom: none!important;
+
+    }
+
+    .social {
+        a {
+            border-bottom: none!important;
+            img {
+                transition: 0.2s all;
+            }
+
+            &:hover, &:focus {
+                border-bottom: none!important;
+                
+                img {
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+}
