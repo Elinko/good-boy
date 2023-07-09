@@ -2,13 +2,14 @@ const initialState = {
     step1: {
       selectedOption: 'Konkrétny útulok',
       donationAmount: 50,
-      shelter: '',
+      shelters: [],
+      shelterID: '',
     },
     step2: {
       firstName: '',
       lastName: '',
       email: '',
-      phone: '',
+      phone: '+421',
     },
     agreedToTerms: false,
     currentStep: 1, // Pridaná položka pre currentStep

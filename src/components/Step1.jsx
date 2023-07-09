@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateStep1 } from '../actions';
 
-const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNext }) => {
-  const options = ['Konkrétny útulok', 'Prispiť nadácii'];
+const Step1 = ({ selectedOption, shelters, shelterID, donationAmount, updateStep1, handleNext }) => {
+  const options = ['Konkrétny útulok', 'Prispieť nadácii'];
   const amounts = [5, 10, 20, 50, 100];
-  const [customAmount, setCustomAmount] = useState('');
-
-  const [shelters, setShelters] = useState([]);
+  const [customAmount, setCustomAmount] = useState(''); 
+  
   
   useEffect(() => {
     const fetchShelters = async () => {
@@ -15,7 +14,7 @@ const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNex
         const response = await fetch('https://frontend-assignment-api.goodrequest.dev/api/v1/shelters');
         const data = await response.json();
         // console.log(data.shelters);
-        setShelters(data.shelters);
+       updateStep1('shelters', data.shelters); 
       } catch (error) {
         console.error('Error fetching shelters:', error);
       }
@@ -28,14 +27,14 @@ const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNex
   const handleAmountChange = (e) => {
     const amount = e.target.value; 
 
-    updateStep1('selectedOption', amount);
+    updateStep1('donationAmount', amount);
     setCustomAmount(''); 
   };
 
   const handleCustomAmountChange = (e) => {
     const amount = e.target.value;
     setCustomAmount(amount);
-    updateStep1('selectedOption', amount);
+    updateStep1('donationAmount', amount);
   };
 
   const handleAmountOptionChange = (e) => {
@@ -43,8 +42,25 @@ const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNex
     if (amount === 'Iná suma') {
       setCustomAmount('');
     }
-    updateStep1('selectedOption', amount);
+    updateStep1('donationAmount', amount);
   };
+
+  const handleStep1 = (e) => { 
+    let shelterError = document.querySelector('.error');
+
+    if(selectedOption == 'Konkrétny útulok' && shelterID== '') { 
+      // console.log( document.querySelector('.error'));
+      shelterError.style.display = 'block'
+    } else {
+      shelterError.style.display = 'none'
+
+      if(selectedOption == 'Prispieť nadácii') {
+        updateStep1('shelterID', null);
+
+      }
+      handleNext()
+    }
+  }
 
   return (
     <div>
@@ -68,16 +84,18 @@ const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNex
           <label>
             Vyberte útulok:
             <select
+              id="shelter-select"
               name="shelter"
-              onChange={(e) => updateStep1('shelter',e.target.value)}
+              onChange={(e) => updateStep1('shelterID',e.target.value)}
             >
               <option value="">-- Vyberte útulok --</option>
               {shelters.map((shelter) => (
-                <option key={shelter.id} value={shelter.name}>
+                <option key={shelter.id} value={shelter.id}>
                   {shelter.name}
                 </option>
               ))}
             </select>
+            <span className='error'>Musíš zvoliť útulok</span>
           </label>
           <br />
         </div>
@@ -118,7 +136,7 @@ const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNex
       </label>
       <br />
        
-      <button onClick={handleNext}>Pokračujte</button>
+      <button onClick={handleStep1}>Pokračujte</button>
     </div>
   );
 };
@@ -126,6 +144,7 @@ const Step1 = ({ selectedOption, shelter, donationAmount, updateStep1, handleNex
 const mapStateToProps = (state) => ({ 
   selectedOption: state.step1.selectedOption,
   shelters: state.step1.shelters,
+  shelterID: state.step1.shelterID,
   donationAmount: state.step1.donationAmount
 });
 

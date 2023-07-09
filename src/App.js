@@ -51,6 +51,7 @@ const mapDispatchToProps = {
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(Steps);
 
+  
 function App() {
   return (
     <div className="App">
@@ -59,8 +60,8 @@ function App() {
         <div className="main">
           <div className="row">
             <div className="col-md-7">
-              <Provider store={store}>
-                <ConnectedApp />
+              <Provider store={store}> 
+                  <ConnectedApp /> 
               </Provider>
             </div>
             <div className="col-md-5">

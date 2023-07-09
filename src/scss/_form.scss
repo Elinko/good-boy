@@ -1,0 +1,16 @@
+form {
+    .error {
+        display: none;
+    }
+
+    &.validated {
+        input:invalid ~ .error {
+            display: block;
+        }
+
+        input:invalid:has(> .error)   {
+            display: block;
+
+        }
+    }
+}
