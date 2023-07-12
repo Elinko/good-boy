@@ -1,6 +1,29 @@
+.form {
+    .step {
+        display: flex;
+        gap: 5px;
+
+        &__item {
+            width: 20.596px;
+            height: 6px;
+            border-radius: 10px;
+            opacity: 0.36000001430511475;
+            background: $gray;
+            transition: 0.3s all;
+
+            &--active {
+                width: 43px;
+                opacity: 1;
+                background: linear-gradient(135deg, rgba(0, 0, 0, 0.24) 0%, rgba(0, 0, 0, 0.00) 100%), #CD8B65;
+            }
+        }
+    }
+}
+
+
 form {
     .error {
-        display: none;
+        // display: none;
     }
 
     &.validated {

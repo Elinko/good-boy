@@ -10,7 +10,7 @@ import Summary from './components/Summary';
 import { updateCurrentStep } from './actions';
 
 import './App.scss';
-import './scss/styles.scss';
+import styles from './scss/styles.scss';
 
 const Steps = ({ currentStep, updateCurrentStep }) => {
 
@@ -38,7 +38,16 @@ const Steps = ({ currentStep, updateCurrentStep }) => {
     }
   };
 
-  return <div>{renderStep()}</div>;
+  return (
+    <div>
+      <div className='step'>
+        <span className={`step__item ${currentStep === 1 ? 'step__item--active' : ''}`} />
+        <span className={`step__item ${currentStep === 2 ? 'step__item--active' : ''}`} />
+        <span className={`step__item ${currentStep === 3 ? 'step__item--active' : ''}`} />
+      </div>
+      {renderStep()}
+     </div>
+  );
 };
 
 const mapStateToProps = (state) => ({
@@ -59,7 +68,8 @@ function App() {
       <div className="container">
         <div className="main">
           <div className="row">
-            <div className="col-md-7">
+            <div className="col-md-7 form">
+ 
               <Provider store={store}> 
                   <ConnectedApp /> 
               </Provider>

@@ -2,6 +2,7 @@ const initialState = {
     step1: {
       selectedOption: 'Konkrétny útulok',
       donationAmount: 50,
+      customAmount: "",
       shelters: [],
       shelterID: '',
     },
