@@ -51,8 +51,10 @@ const initialState = {
         return {
           ...state,
           currentStep: action.payload,
-        };
-        default:
+        };  
+      case 'RESET_FORM':
+          return initialState; // Vráti počiatočný stav formulára
+      default:
         return state;
     }
   };

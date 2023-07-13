@@ -19,6 +19,11 @@ const Steps = ({ currentStep, updateCurrentStep }) => {
     console.log(currentStep);
   };
 
+  const jumpToStep1 = () => {
+    updateCurrentStep(1);
+    console.log(currentStep);
+  };
+
   const handlePrev = () => {
     updateCurrentStep(currentStep - 1);
   };
@@ -32,7 +37,7 @@ const Steps = ({ currentStep, updateCurrentStep }) => {
       case 2:
         return <Step2 handleNext={handleNext} handlePrev={handlePrev} />;
       case 3:
-        return <Summary  handlePrev={handlePrev} />;
+        return <Summary jumpToStep1={jumpToStep1}  handlePrev={handlePrev} />;
       default:
         return null;
     }
@@ -60,6 +65,13 @@ const mapDispatchToProps = {
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(Steps);
 
+const displayModal= () => {
+  let modal = document.getElementById('modal-wrap')
+  modal.style.display = 'none';
+}
+
+ 
+
   
 function App() {
   return (
@@ -81,8 +93,17 @@ function App() {
         </div>
       </div>
       <Footer></Footer>
+      <div className='modal-wrap' id="modal-wrap" onClick={displayModal} >
+        <div className='modal-success'>
+          <h2>
+            Ďakujeme, formuál úspešne odoslaný
+          </h2>
+          <span className='close'>x</span>
+        </div>
+      </div>
     </div>
   );
 }
 
+ 
 export default App;

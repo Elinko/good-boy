@@ -17,6 +17,10 @@ export const updateCurrentStep = (step) => ({
   type: 'UPDATE_CURRENT_STEP',
   payload: step,
 });
+
+export const resetForm = () => ({
+  type: 'RESET_FORM',
+});
  
 
 export const toggleAgreement = () => ({ type: 'TOGGLE_AGREEMENT' });

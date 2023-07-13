@@ -4,6 +4,10 @@ import { updateStep1 } from '../actions';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { ReactComponent as WalletIcon } from '../img/wallet.svg';
+import { ReactComponent as PawIcon } from '../img/paw.svg';
+
+
 const Step1 = ({ selectedOption, shelters, shelterID, donationAmount, customAmount, updateStep1, handleNext }) => {
   const amounts = [5, 10, 20, 50, 100];
 
@@ -29,6 +33,7 @@ const Step1 = ({ selectedOption, shelters, shelterID, donationAmount, customAmou
       is: (option) => option === 'Konkrétny útulok',
       then: Yup.string().required('Vyberte útulok'),
     }),
+    donationAmount: Yup.number().required('Zadajte sumu'),
   });
 
   useEffect(() => {
@@ -58,7 +63,7 @@ const Step1 = ({ selectedOption, shelters, shelterID, donationAmount, customAmou
   };
 
   return (
-    <div>
+    <div className='step1'>
       <h1>Vyberte si možnosť, ako chcete pomôcť</h1>
       <Formik
         initialValues={initialFormValues}
@@ -67,16 +72,17 @@ const Step1 = ({ selectedOption, shelters, shelterID, donationAmount, customAmou
       >
         {({ errors, setFieldValue, values }) => (
           <Form>
-            <div>
-              <label>Možnosť:</label>
-              <div>
-                <label>
+            <div> 
+              <div className='d-flex step1__shelter-type-wrap'>
+                <label className={`step1__shelter-type step1__shelter-type--left ${values.option === 'Konkrétny útulok' ? 'active' : ''}`}>
+                  <span><WalletIcon /></span>
                   <Field type="radio" name="option" value="Konkrétny útulok" />
-                  Konkrétny útulok
+                  <p>Chcem finančne prispieť konkrétnemu útulku</p>
                 </label>
-                <label>
+                <label className={`step1__shelter-type step1__shelter-type--right ${values.option === 'Prispieť nadácii' ? 'active' : ''}`}>
+                  <span><PawIcon /></span>
                   <Field type="radio" name="option" value="Prispieť nadácii" />
-                  Prispieť nadácii
+                  <p>Chcem finančne prispieť celej&nbsp;nadácii</p>
                 </label>
               </div>
               <ErrorMessage name="option" component="div" className="error" />
@@ -86,63 +92,71 @@ const Step1 = ({ selectedOption, shelters, shelterID, donationAmount, customAmou
                 {({ field, form }) => (
                   <>
                     {form.values.option === 'Konkrétny útulok' && (
-                      <div>
-                        <label htmlFor="shelterID">Útulok:</label>
-                        <Field as="select" id="shelterID" name="shelterID">
-                          <option value="">-- Vyberte útulok --</option>
-                          {shelters.map((shelter) => (
-                            <option key={shelter.id} value={shelter.id}>
-                              {shelter.name}
-                            </option>
-                          ))}
-                        </Field>
-                        <ErrorMessage name="shelterID" component="div" className="error" />
-                      </div>
+                      <>
+                        <div className='d-flex justify-content-between field-info'><strong>O projekte</strong> <span>Nepovinné</span></div>
+                        <div className='form-control'>
+                          <label htmlFor="shelterID">Útulok</label>
+                          <Field as="select" id="shelterID" name="shelterID">
+                            <option value="">Vyberte útulok zo zoznamu</option>
+                            {shelters.map((shelter) => (
+                              <option key={shelter.id} value={shelter.id}>
+                                {shelter.name}
+                              </option>
+                            ))}
+                          </Field>
+                          <ErrorMessage name="shelterID" component="div" className="error" />
+                        </div>
+                      </>
                     )}
                   </>
                 )}
               </Field>
             </div>
-            <div>
-              <label>Vyberte sumu:</label>
-              <br />
-              {amounts.map((amount) => (
-                <label key={amount}>
-                  <Field
+            <div> 
+              <div className='d-flex justify-content-between field-info'><strong>Suma, ktorou chcem prispieť</strong> </div>
+              <div className='d-flex'>
+                {amounts.map((amount) => (
+                  <label key={amount} className={`radio-btn ${values.donationAmount === amount ? 'active' : ''}`}>
+                    <Field
+                      type="radio"
+                      name="donationAmount"
+                      value={amount}
+                      checked={values.donationAmount === amount}
+                      onChange={() => {
+                        setFieldValue('customAmount', '');
+                        setFieldValue('donationAmount', amount);
+                      }}
+                    />
+                    {amount}&nbsp;€
+                  </label>
+                ))}
+
+                <label className={`radio-btn radio-btn--long ${values.donationAmount === values.customAmount ? 'active' : ''}`}>
+                  <Field 
                     type="radio"
                     name="donationAmount"
-                    value={amount}
-                    checked={values.donationAmount === amount}
-                    onChange={() => {
-                      setFieldValue('customAmount', '');
-                      setFieldValue('donationAmount', amount);
-                    }}
+                    value="Iná suma"
+                    checked={values.donationAmount === values.customAmount}
+                    onChange={() => setFieldValue('donationAmount', 'Iná suma')}
                   />
-                  {amount}
+                  <div>
+
+                    <Field
+                      type="number"
+                      name="customAmount"
+                      onChange={(e) => {
+                        setFieldValue('donationAmount', e.target.value);
+                        setFieldValue('customAmount', e.target.value);
+                      }}
+                    />&nbsp;€
+                  </div>
                 </label>
-              ))}
-              <br />
-              <label>
-                <Field
-                  type="radio"
-                  name="donationAmount"
-                  value="Iná suma"
-                  checked={values.donationAmount === values.customAmount}
-                  onChange={() => setFieldValue('donationAmount', 'Iná suma')}
-                />
-                Iná suma:
-                <Field
-                  type="number"
-                  name="customAmount"
-                  onChange={(e) => {
-                    setFieldValue('donationAmount', e.target.value);
-                    setFieldValue('customAmount', e.target.value);
-                  }}
-                />
-              </label>
+              </div>
             </div>
 
-            <button type="submit">Odoslať</button>
+            <div className='text-right'>
+            <button type="submit" className='btn btn__brown'>Pokračovať</button>
+            </div>
           </Form>
         )}
       </Formik>

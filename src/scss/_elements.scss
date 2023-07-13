@@ -1,0 +1,105 @@
+.btn {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 800;
+    color: #fff;
+    line-height: 19px;
+    border-radius: 100px;
+    box-shadow: 0px 2.767256498336792px 2.2138051986694336px 0px rgba(0, 0, 0, 0.02), 0px 6.650102138519287px 5.32008171081543px 0px rgba(0, 0, 0, 0.03), 0px 12.521552085876465px 10.017241477966309px 0px rgba(0, 0, 0, 0.04), 0px 22.3363094329834px 17.869047164916992px 0px rgba(0, 0, 0, 0.04), 0px 41.777610778808594px 33.422088623046875px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
+    padding: 20px 24px;
+    border: none!important;
+    margin-top: 60px;
+    overflow: hidden;
+    
+    &__brown {
+        // background: linear-gradient(115deg, #CD8A64 0%, #C4794F 100%);
+        // transition: 0.3s all ease-in-out;
+        position: relative;
+        z-index: 1; 
+        // background: linear-gradient(115deg, #CD8A64 0%, #612806 100%);
+        
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(115deg, #CD8A64 0%, #C4794F 50%,#491d04 100%);
+            transition: transform 0.4s;
+            z-index: -1;
+        }
+
+        &:hover {
+            &:before {
+                transform: translatex(-50%);
+              }
+        }   
+    }
+
+    &__light {
+        background: #F3E2D9;
+        color: $text;
+    }
+
+    &__gray {
+        background: $gray; 
+    }
+
+}
+
+.step {
+    padding-right: 40px;
+}
+
+.modal-wrap {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: none;
+    
+    &:before {
+        position: fixed;
+        top: 0;
+        content: '';
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff91;
+    }
+}
+
+.modal-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    padding: 30px;
+    border-radius: 25px;
+    transform: translate(-50%, -50%);
+    background: $brown-light;
+    z-index: 101;
+
+
+    h2 {
+        color: #fff;
+    }
+
+    .close {
+        color: #fff;
+        font-size: 25px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -35px;
+        margin-left: 145px;
+        padding: 30px;
+        border-radius: 25px;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+
+}

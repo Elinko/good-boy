@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateStep2 } from '../actions';
-import PhoneInput , { formatPhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput , { isValidPhoneNumber } from 'react-phone-number-input';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import 'react-phone-number-input/style.css'; 
 import * as Yup from 'yup';
@@ -39,8 +39,8 @@ const Step2 = ({ firstName, lastName, email, phone, updateStep2, handleNext, han
 
 
   return (
-    <div>
-      <h2>Krok 2: Zadajte vaše údaje</h2>
+    <div className='step2'>
+      <h1>Potrebujeme od Vás zopár informácií</h1>
       <Formik
         initialValues={initialFormValues} 
         validationSchema={validationSchema}
@@ -48,54 +48,65 @@ const Step2 = ({ firstName, lastName, email, phone, updateStep2, handleNext, han
       >
         {({ isSubmitting, setFieldValue }) => (
           <Form>
-            <label>
-              Meno:
-              <Field type="text" name="firstName" />
-              <ErrorMessage name="firstName" component="div" />
-            </label>
-            <br />
-            <label>
-              Priezvisko:
-              <Field type="text" name="lastName" />
-              <ErrorMessage name="lastName" component="div" />
-            </label>
-            <br />
-            <label>
-              Email:
-              <Field type="email" name="email" />
-              <ErrorMessage name="email" component="div" />
-            </label>
-            <br />
-            <label>
-              Telefón:
-              <Field name="phone">
-                {({ field }) => (
-                  <PhoneInput 
-                    className="phoneInput"
-                    countries={['SK', 'CZ']}
-                    defaultCountry="SK"
-                    placeholder="Enter phone number"
-                    value={phoneVal}
-                    countryCallingCodeEditable={false}
-                    onChange={setPhoneVal }
-                    error={phoneVal ? (isValidPhoneNumber(phoneVal) ? undefined : 'Invalid phone number') : 'Phone number required'}
-                    name="phone"
-                    required 
-                    maxLength={16}
-                    pattern="^(\+421|\\+420)?(\s?\d{3}){3}$"
-                    international 
-                  />
-                )}
-              </Field>
-              <ErrorMessage name="phone" component="div" />
-            </label>
-            <br />
-            <button type="submit" disabled={isSubmitting}>
-              Pokračovať
-            </button>
-            <button type="button" onClick={handlePrev}>
-              Späť
-            </button>
+            <div>
+                <div className='d-flex justify-content-between field-info'><strong>O vás</strong>  </div>
+                <div className='form-control'>
+                  <label>
+                    Meno:
+                    <Field type="text" name="firstName" placeholder="Zadajte Vaše meno" />
+                    <ErrorMessage name="firstName" component="div" />
+                  </label>  
+                </div>  
+                <div className='form-control'>
+                  <label>
+                    Priezvisko:
+                    <Field type="text" name="lastName" />
+                  </label>
+                </div> 
+                    <ErrorMessage name="lastName" component="div" className="error" />
+                <div className='form-control'>
+                  <label>
+                    Email:
+                    <Field type="email" name="email" />
+                  </label>
+                </div> 
+                    <ErrorMessage name="email" component="div"  className="error"/>
+                <div className='form-control'>
+                  <label>
+                    Telefón:
+                    <Field name="phone">
+                      {({ field }) => (
+                        <PhoneInput 
+                          className="phoneInput"
+                          countries={['SK', 'CZ']}
+                          defaultCountry="SK"
+                          placeholder="Enter phone number"
+                          value={phoneVal}
+                          countryCallingCodeEditable={false}
+                          onChange={setPhoneVal }
+                          error={phoneVal ? (isValidPhoneNumber(phoneVal) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                          name="phone"
+                          required 
+                          maxLength={16}
+                          pattern="^(\+421|\\+420)?(\s?\d{3}){3}$"
+                          international 
+                        />
+                      )}
+                    </Field>
+                    <ErrorMessage name="phone" component="div" />
+                  </label>
+                </div> 
+                <div className='d-flex justify-content-between'>
+                  <button type="button" onClick={handlePrev} className='btn btn__light'>
+                    Späť
+                  </button>
+                  <button type="submit" disabled={isSubmitting} className='btn btn__gray'>
+                    Pokračovať
+                  </button>
+                </div>
+                 
+            </div>
+
           </Form>
         )}
       </Formik>

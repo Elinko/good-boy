@@ -26,14 +26,175 @@ form {
         // display: none;
     }
 
-    &.validated {
-        input:invalid ~ .error {
+   
+    .radio-btn {
+        border-radius: 8px;
+        border: 1px solid #DFDFDF;
+        background: #FFF;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 21px;
+        padding: 16px;
+        display: inline-block;
+        margin-right: 7px;
+        color: $text;
+        transition: 0.2s all;
+
+        input[type="radio"] {
+            visibility: hidden;
+            width: 1px;
+            margin: 0px;
+            padding: 0;
+            display: none;
+        }
+
+        &--long {
+            display: flex;
+            width: 54px;
+
+            input {
+                width: 33px;
+                font-size: 16px;
+                font-weight: 800;
+                line-height: 21px;
+                border: 0!important;
+                border-bottom: 1px solid $border!important;
+
+                &:focus {
+                    border: 0;
+                    outline: none;
+                }
+            }
+
+            /* Chrome, Safari, Edge, Opera */
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+
+            /* Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;     
+            }
+
+        }
+
+        &.active, &:hover {
+            background:  $brown-light;
+            border-color: $brown-light;
+            color: #fff;
+
+            input[type="number"] {
+                background: transparent;
+                color: #fff
+            }
+
+        }
+    }
+
+    .form-control {
+        padding: 16px;
+        border: 1px solid $border;
+        border-radius: 8px;
+        margin-bottom: 40px;
+        z-index: 2;
+        position: relative;
+        background: #fff;
+
+        .error {
+            position: absolute;
+            top: 75px;
+            left: 16px;
+            color: $brown;
+            font-size: 1.4rem;;
+        }
+
+
+
+        label {
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 21px;
             display: block;
         }
 
-        input:invalid:has(> .error)   {
-            display: block;
+        input, select {
+            font-size: 1.6rem;
+            color: $gray;
+            border: 0;
+            width: 100%;
+            line-height: 21px;
 
+            &::placeholder {
+                color: $gray
+            }
+           
+            &:focus {
+                border: 0;
+                outline: none;
+            }
         }
+    }
+
+    .field-info {
+        margin-bottom: 15px;
+        z-index: 2;
+        position: relative;
+        strong {
+            font-size: 1.6rem;
+            color: $text;
+        }
+
+        span {
+            font-size: 1.4rem;
+            color: $text;
+            opacity: 0.8;
+            font-weight: bold;
+        }
+    }
+
+    .phoneInput  {
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 1px;
+            text-overflow: '';
+        }
+    }
+
+    .ant-checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        flex-direction: row; 
+
+        .ant-checkbox-inner {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0; 
+            border-radius: 8px;
+            border: 1px solid #F3E2D9;
+            background: #FFF;
+
+            &:after {
+                transform: rotate(45deg) scale(1) translate(-51%,-80%);
+                width: 8.714286px;
+                height: 15.142857px;
+                border-color: $brown-light;
+            }
+        }
+
+        &.ant-checkbox-wrapper-checked {
+            .ant-checkbox-inner {
+                background: #FFF!important;
+
+            }
+        }
+    }
+
+    .input-feedback {
+        color: $brown;
+        font-size: 1.4rem;;
+        margin-top: 5px;
     }
 }
