@@ -80,13 +80,13 @@ function App() {
       <div className="container">
         <div className="main">
           <div className="row">
-            <div className="col-md-7 form">
+            <div className="col-lg-7 form">
  
               <Provider store={store}> 
                   <ConnectedApp /> 
               </Provider>
             </div>
-            <div className="col-md-5">
+            <div className="col-lg-5 d-none d-lg-block">
               <img src="images/dog.png" alt="dog" />
             </div>
           </div>

@@ -17,7 +17,7 @@ body {
 
 
 .main {
-  padding: 60px;
+  padding: 50px 10px;
 
   @include media-breakpoint-up(md) {
     padding: 80px;

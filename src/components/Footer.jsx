@@ -7,7 +7,9 @@ const Footer = () => {
        <div className="container">
             <div className="row">
                 <div className="col-lg-3 col-md-6 ">
-                    <img src="images/logo-new.png" alt="Good boy logo" />
+                    <div className="footer__item">
+                        <img src="images/logo-new.png" alt="Good boy logo" />
+                    </div>
                 </div>
                 <div className="col-lg-3 col-md-6  ">
                     <div className="footer__item">

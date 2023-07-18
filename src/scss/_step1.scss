@@ -1,17 +1,27 @@
 .step1 {
-    padding-right: 40px;
     &__shelter-type-wrap {
         margin-bottom: 50px;
     }
 
+    @include media-breakpoint-up(md) {
+        padding-right: 40px;
+
+    }
+    
     &__shelter-type {
         width: 50%;
-        height: 136px;
-        background: linear-gradient(180deg, $brown-light 0%, $brown 100%);
+        height: auto;
+        background: $gray-bg;
         border: 1px solid $brown-light;
         padding: 25px;
         cursor: pointer;
         transition: 0.3s all;
+        font-size: 1.6rem;
+
+        @include media-breakpoint-up(md){
+            //  height: 136px;
+
+        }
         
         &--left {
             border-radius: 24px 0px 0px 24px;
@@ -27,29 +37,24 @@
             background: rgba(47, 47, 47, 0.16); 
             border-radius: 100%;
             display: inline-block;
-
         }
+
         p {
-            color: #fff;
+            color: $text-gray;
+            margin-bottom: 0;
         }
 
         input {
             visibility:hidden;
-
         }
-
+        
         &.active {
-            background: $gray-bg;
-            // box-shadow: none;
-
+            background: linear-gradient(180deg, $brown-light 0%, $brown 100%);
 
             p {
-                color: $text-gray;
+                color: #fff;
                 font-size: 1.6rem;
-            }
-            span {
-
-            }
+            } 
         }
         
     }

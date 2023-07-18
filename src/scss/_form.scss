@@ -31,14 +31,22 @@ form {
         border-radius: 8px;
         border: 1px solid #DFDFDF;
         background: #FFF;
-        font-size: 16px;
-        font-weight: 800;
+        font-size: 15px;
+        font-weight: 800;            
         line-height: 21px;
-        padding: 16px;
+        padding: 4px;
         display: inline-block;
         margin-right: 7px;
         color: $text;
         transition: 0.2s all;
+        margin-bottom: 7px;
+
+        @include media-breakpoint-up(sm) {
+            font-size: 16px;
+            padding: 16px;
+            line-height: 21px;
+
+        }
 
         input[type="radio"] {
             visibility: hidden;
